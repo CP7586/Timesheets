@@ -1,25 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1mcmNykIZfAFFUVDRValDahM2Ob_r9o5e">  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service Call Portal</title>
+  <base target="_top">
+  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1mcmNykIZfAFFUVDRValDahM2Ob_r9o5e">
+  <title>Timesheets</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+    .btn {
+      background-color: #0366d6; color: white; padding: 12px 24px;
+      text-decoration: none; border-radius: 6px; font-size: 16px; display: inline-block; cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbwy116UERWojo03xyhm6TTCBtCvbYuvJXOPsLNMlDrpT2RdSfh-wOyCrKdUAJWBesRN/exec"></iframe>
+
+  <h2>Welcome to Timesheets</h2>
+  <button class="btn" onclick="testConnection()">Test Backend Connection</button>
+
+  <!-- Your JavaScript goes here, right inside the HTML file -->
+  <script>
+    // Replace this with your actual Google Apps Script Web App URL (ending in /exec)
+    const SCRIPT_URL = "AKfycbwy116UERWojo03xyhm6TTCBtCvbYuvJXOPsLNMlDrpT2RdSfh-wOyCrKdUAJWBesRN/";
+
+    async function testConnection() {
+      try {
+        let response = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify({ 
+            action: "login", 
+            payload: { username: "admin", password: "admin123" } 
+          })
+        });
+        let result = await response.json();
+        alert("Server response: " + JSON.stringify(result));
+      } catch (error) {
+        alert("Error connecting to script: " + error);
+      }
+    }
+  </script>
+
 </body>
 </html>
